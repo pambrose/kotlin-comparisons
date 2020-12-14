@@ -1,4 +1,4 @@
-import TreeCompare.Tree.Companion.treeOf
+import TrieCompare.Trie.Companion.trieOf
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.zip
@@ -7,24 +7,24 @@ import java.util.concurrent.atomic.AtomicInteger
 import kotlin.time.measureTimedValue
 
 
-object TreeCompare {
+object TrieCompare {
 
   @JvmStatic
   fun main(args: Array<String>) {
-    val tree1 = treeOf("test", "of", "sentence", "trie", "data", "structure")
-    val tree2 = treeOf("test", "of", "sentence", "trie", "data", "structure")
+    val trie1 = trieOf("test", "of", "sentence", "trie", "data", "structure")
+    val trie2 = trieOf("test", "of", "sentence", "trie", "data", "structure")
 
-    tree1.visitEach { println(it) }
+    trie1.visitEach { println(it) }
 
-    println(tree1.size)
-    println(tree1.words)
+    println(trie1.size)
+    println(trie1.words)
 
-    println(measureTimedValue { treesAreTheSame1(tree1, tree2) })
-    println(measureTimedValue { treesAreTheSame2(tree1, tree2) })
-    println(measureTimedValue { treesAreTheSame3(tree1, tree2) })
+    println(measureTimedValue { triesAreTheSame1(trie1, trie2) })
+    println(measureTimedValue { triesAreTheSame2(trie1, trie2) })
+    println(measureTimedValue { triesAreTheSame3(trie1, trie2) })
   }
 
-  class Tree {
+  class Trie {
     private val root: Node = Node()
 
     val size
@@ -42,7 +42,7 @@ object TreeCompare {
     override fun toString() = words.toString()
 
     companion object {
-      fun treeOf(vararg elements: String) = Tree().apply { elements.forEach { add(it) } }
+      fun trieOf(vararg elements: String) = Trie().apply { elements.forEach { add(it) } }
     }
   }
 
@@ -78,29 +78,29 @@ object TreeCompare {
 
   }
 
-  fun treesAreTheSame1(tree1: Tree, tree2: Tree) =
-    if (tree1.size != tree2.size)
+  fun triesAreTheSame1(trie1: Trie, trie2: Trie) =
+    if (trie1.size != trie2.size)
       false
     else {
-      tree1.words.sorted() == tree2.words.sorted()
+      trie1.words.sorted() == trie2.words.sorted()
     }
 
-  fun treesAreTheSame2(tree1: Tree, tree2: Tree) =
-    if (tree1.size != tree2.size)
+  fun triesAreTheSame2(trie1: Trie, trie2: Trie) =
+    if (trie1.size != trie2.size)
       false
     else
-      tree1.words
+      trie1.words
         .asSequence()
-        .map { tree2.contains(it) }
+        .map { trie2.contains(it) }
         .firstOrNull { !it } ?: true
 
-  fun treesAreTheSame3(tree1: Tree, tree2: Tree) =
-    if (tree1.size != tree2.size)
+  fun triesAreTheSame3(trie1: Trie, trie2: Trie) =
+    if (trie1.size != trie2.size)
       false
     else
       runBlocking {
-        val f1 = channelFlow { tree1.visitEach { send(it) } }
-        val f2 = channelFlow { tree2.visitEach { send(it) } }
+        val f1 = channelFlow { trie1.visitEach { send(it) } }
+        val f2 = channelFlow { trie2.visitEach { send(it) } }
 
         f1.zip(f2) { i, j -> i == j }.firstOrNull { !it } ?: true
       }
