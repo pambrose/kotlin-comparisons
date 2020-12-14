@@ -1,0 +1,30 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.4.21'
+}
+
+group 'com.github.pambrose'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2"
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = '1.8'
+    kotlinOptions.freeCompilerArgs += ['-Xuse-experimental=kotlin.time.ExperimentalTime',
+                                       '-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi',
+                                       '-XXLanguage:+InlineClasses']
+}
+
+compileTestKotlin {
+    kotlinOptions.jvmTarget = '1.8'
+    kotlinOptions.freeCompilerArgs += ['-Xuse-experimental=kotlin.time.ExperimentalTime',
+                                       '-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi',
+                                       '-XXLanguage:+InlineClasses']
+}
