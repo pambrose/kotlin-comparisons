@@ -1,7 +1,7 @@
-import TrieCompare.Trie.Companion.trieOf
-import TrieCompare.triesAreTheSame1
-import TrieCompare.triesAreTheSame2
-import TrieCompare.triesAreTheSame3
+import Trie.Companion.trieOf
+import TrieExample.triesAreTheSame1
+import TrieExample.triesAreTheSame2
+import TrieExample.triesAreTheSame4
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
@@ -14,7 +14,7 @@ class TrieTest : StringSpec(
 
       triesAreTheSame1(trie1, trie2).shouldBeFalse()
       triesAreTheSame2(trie1, trie2).shouldBeFalse()
-      triesAreTheSame3(trie1, trie2).shouldBeFalse()
+      triesAreTheSame4(trie1, trie2).shouldBeFalse()
     }
 
     "Test equal tries" {
@@ -23,7 +23,7 @@ class TrieTest : StringSpec(
 
       triesAreTheSame1(trie1, trie2).shouldBeTrue()
       triesAreTheSame2(trie1, trie2).shouldBeTrue()
-      triesAreTheSame3(trie1, trie2).shouldBeTrue()
+      triesAreTheSame4(trie1, trie2).shouldBeTrue()
     }
 
     "Test repeat tries" {
@@ -32,6 +32,6 @@ class TrieTest : StringSpec(
 
       triesAreTheSame1(trie1, trie2).shouldBeTrue()
       triesAreTheSame2(trie1, trie2).shouldBeTrue()
-      triesAreTheSame3(trie1, trie2).shouldBeTrue()
+      triesAreTheSame4(trie1, trie2).shouldBeTrue()
     }
   })

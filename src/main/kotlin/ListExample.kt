@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.zip
 import kotlinx.coroutines.runBlocking
 import kotlin.time.measureTimedValue
 
-object ListCompare {
+object ListExample {
 
   @JvmStatic
   fun main(args: Array<String>) {
